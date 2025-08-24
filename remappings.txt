@@ -1,0 +1,1 @@
+canon-guard/=node_modules/@defi-wonderland/canon-guard-interfaces/src/interfaces

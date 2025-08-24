@@ -1,0 +1,37 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@defi-wonderland/canon-guard-interfaces':
+        specifier: ^0.0.1
+        version: 0.0.1
+
+packages:
+
+  '@defi-wonderland/canon-guard-interfaces@0.0.1':
+    resolution: {integrity: sha512-jdO9/NVJ0+ThM/CKCF0aA9VUgwZMBvONdt6jiDKMlij1p3Ax5FfusmC0bvOf19RIGUGnUdZNWswBZPKmzaac6Q==}
+
+  '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250':
+    resolution: {tarball: https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250}
+    version: 1.4.1-build.0
+
+  solady@https://codeload.github.com/vectorized/solady/tar.gz/701406e:
+    resolution: {tarball: https://codeload.github.com/vectorized/solady/tar.gz/701406e}
+    version: 0.1.19
+
+snapshots:
+
+  '@defi-wonderland/canon-guard-interfaces@0.0.1':
+    dependencies:
+      '@safe-global/safe-contracts': '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250'
+      solady: https://codeload.github.com/vectorized/solady/tar.gz/701406e
+
+  '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250': {}
+
+  solady@https://codeload.github.com/vectorized/solady/tar.gz/701406e: {}
