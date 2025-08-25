@@ -1,1 +1,3 @@
-canon-guard/=node_modules/@defi-wonderland/canon-guard-interfaces/src/interfaces
+@safe-smart-account/=node_modules/@safe-global/safe-contracts/contracts
+@canon-guard/=node_modules/@defi-wonderland/canon-guard-interfaces/src/interfaces
+@interfaces/=interfaces

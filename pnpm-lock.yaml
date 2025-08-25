@@ -11,6 +11,9 @@ importers:
       '@defi-wonderland/canon-guard-interfaces':
         specifier: ^0.0.1
         version: 0.0.1
+      '@safe-global/safe-contracts':
+        specifier: github:safe-global/safe-smart-account#b75e250
+        version: '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250'
 
 packages:
 

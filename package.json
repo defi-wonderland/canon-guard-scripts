@@ -11,6 +11,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
   "dependencies": {
-    "@defi-wonderland/canon-guard-interfaces": "^0.0.1"
+    "@defi-wonderland/canon-guard-interfaces": "^0.0.1",
+    "@safe-global/safe-contracts": "github:safe-global/safe-smart-account#b75e250"
   }
 }
