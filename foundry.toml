@@ -14,6 +14,3 @@ libs = ['node_modules', 'lib']
 
 [rpc_endpoints]
 optimism = "${OPTIMISM_RPC_URL}"
- 
-[etherscan]
-optimism = { key = "${ETHERSCAN_API_KEY}" }
