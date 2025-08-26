@@ -17,5 +17,4 @@ library CanonRegistry {
     ISimpleActionsFactory constant SIMPLE_ACTIONS_FACTORY = ISimpleActionsFactory(0xB63Bd0e55d3026d4a06C482b4c193E835EeD66b1);
     ISimpleTransfersFactory constant SIMPLE_TRANSFERS_FACTORY = ISimpleTransfersFactory(0xEE6c9f2Ced068f0389f437B830A511f054F5cc9B);
     address constant NO_ACTIONS = 0xCA026cceC6DA7E6716087697C5662040E8bd54F0;
-    IERC20 constant USDC = IERC20(0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85);
 }
