@@ -34,19 +34,21 @@ pnpm install
 
 ### Running scripts
 
+Run with: `pnpm run <command>`
+
 | Command | Description |
 | --- | --- |
-| `pnpm run setupGuard` | Deploy and configure Canon Guard on your Safe |
-| `pnpm run removeGuard` | Remove Canon Guard from your Safe |
-| `pnpm run isGuardSetup` | Check whether a guard is configured |
-| `pnpm run queueTransaction` | Queue an action builder into the entrypoint |
-| `pnpm run signTransaction` | Approve (sign) a queued action in the Safe |
-| `pnpm run executeTransaction` | Execute a queued action when ready |
-| `pnpm run approveTransaction` | Approve an action builder for a duration |
-| `pnpm run approveHub` | Approve an action hub for a duration |
-| `pnpm run deploySimpleAction` | Create arbitrary call(s) via `SimpleActions` builder |
-| `pnpm run deploySimpleTransfer` | Create ERC20 transfer(s) via `SimpleTransfers` builder |
-| `pnpm run deployCappedTokenTransferHub` | Deploy a Capped Token Transfers Hub |
-| `pnpm run deployCappedTokenTransfer` | Create a capped transfer action from a Hub |
+| `setupGuard` | Deploy and configure Canon Guard on your Safe |
+| `removeGuard` | Remove Canon Guard from your Safe |
+| `isGuardSetup` | Check whether a guard is configured |
+| `queueTransaction` | Queue an action builder into the entrypoint |
+| `signTransaction` | Approve (sign) a queued action in the Safe |
+| `executeTransaction` | Execute a queued action when ready |
+| `approveTransaction` | Approve an action builder for a duration |
+| `approveHub` | Approve an action hub for a duration |
+| `deploySimpleAction` | Create arbitrary call(s) via `SimpleActions` builder |
+| `deploySimpleTransfer` | Create ERC20 transfer(s) via `SimpleTransfers` builder |
+| `deployCappedTokenTransferHub` | Deploy a Capped Token Transfers Hub |
+| `deployCappedTokenTransfer` | Create a capped transfer action from a Hub |
 
 Each command is interactive and will optionally guide you to queue and/or approve in your Safe.
