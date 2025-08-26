@@ -31,6 +31,28 @@ contract GuardActions is BasicActions {
         _setupGuard(shortTxExecutionDelay, longTxExecutionDelay, txExpiryDelay, maxApprovalDuration, emergencyTrigger, emergencyCaller);
     }
 
+    function removeGuard() public {
+        // TODO: check if it is really a Canon Guard
+        if (address(entrypoint) == address(0)) {
+            console.log("Canon Guard is not configured");
+            return;
+        }
+
+        vm.startBroadcast();
+        address removeGuardAction = CanonRegistry.SIMPLE_ACTIONS_FACTORY.createSimpleActions(
+            ISimpleActions.SimpleAction(
+                address(safe),
+                "setGuard(address)",
+                abi.encode(address(0)),
+                0
+            )
+        );
+        console.log("Remove guard simple action deployed to: %s", removeGuardAction);
+        vm.stopBroadcast();
+
+        _proposeQueueTransaction(removeGuardAction, "Remove guard action successfully deployed");
+    }
+
     function _setupGuard(uint256 shortTxExecutionDelay, uint256 longTxExecutionDelay, uint256 txExpiryDelay, uint256 maxApprovalDuration, address emergencyTrigger, address emergencyCaller) internal {
         vm.startBroadcast();
         entrypoint = ISafeEntrypoint(CanonRegistry.SAFE_ENTRYPOINT_FACTORY.createSafeEntrypoint(
