@@ -2,9 +2,9 @@
 pragma solidity 0.8.29;
 
 import {console} from "forge-std/console.sol";
-import {ISafeEntrypoint} from "@interfaces/ISafeEntrypoint.sol";
-import {ISimpleActions} from "@interfaces/actions-builders/ISimpleActions.sol";
-import {IActionsBuilder} from "@interfaces/actions-builders/IActionsBuilder.sol";
+import {ISafeEntrypoint} from "@canon-guard/ISafeEntrypoint.sol";
+import {ISimpleActions} from "@canon-guard/actions-builders/ISimpleActions.sol";
+import {IActionsBuilder} from "@canon-guard/actions-builders/IActionsBuilder.sol";
 
 import {ISafe} from '@safe-smart-account/interfaces/ISafe.sol';
 import {ScriptWithUtils} from "./ScriptWithUtils.s.sol";

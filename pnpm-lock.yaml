@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@defi-wonderland/canon-guard-interfaces':
-        specifier: ^0.0.1
-        version: 0.0.1
+      '@defi-wonderland/canon-guard':
+        specifier: github:defi-wonderland/canon-guard#928d8b6
+        version: https://codeload.github.com/defi-wonderland/canon-guard/tar.gz/928d8b6
       '@safe-global/safe-contracts':
         specifier: github:safe-global/safe-smart-account#b75e250
         version: '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250'
@@ -21,8 +21,9 @@ importers:
 
 packages:
 
-  '@defi-wonderland/canon-guard-interfaces@0.0.1':
-    resolution: {integrity: sha512-jdO9/NVJ0+ThM/CKCF0aA9VUgwZMBvONdt6jiDKMlij1p3Ax5FfusmC0bvOf19RIGUGnUdZNWswBZPKmzaac6Q==}
+  '@defi-wonderland/canon-guard@https://codeload.github.com/defi-wonderland/canon-guard/tar.gz/928d8b6':
+    resolution: {tarball: https://codeload.github.com/defi-wonderland/canon-guard/tar.gz/928d8b6}
+    version: 0.0.1-beta1
 
   '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250':
     resolution: {tarball: https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250}
@@ -77,7 +78,7 @@ packages:
 
 snapshots:
 
-  '@defi-wonderland/canon-guard-interfaces@0.0.1':
+  '@defi-wonderland/canon-guard@https://codeload.github.com/defi-wonderland/canon-guard/tar.gz/928d8b6':
     dependencies:
       '@safe-global/safe-contracts': '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250'
       solady: https://codeload.github.com/vectorized/solady/tar.gz/701406e

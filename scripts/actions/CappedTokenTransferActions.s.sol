@@ -2,7 +2,7 @@
 pragma solidity 0.8.29;
 
 import {console} from "forge-std/console.sol";
-import {ICappedTokenTransfersHub} from "@interfaces/action-hubs/ICappedTokenTransfersHub.sol";
+import {ICappedTokenTransfersHub} from "@canon-guard/action-hubs/ICappedTokenTransfersHub.sol";
 
 import {CanonRegistry} from "../Constants.s.sol";
 import {BasicActions} from "./BasicActions.s.sol";
