@@ -20,10 +20,6 @@
   "author": "Wonderland",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
-  "dependencies": {
-    "@defi-wonderland/canon-guard": "github:defi-wonderland/canon-guard#928d8b6",
-    "@safe-global/safe-contracts": "github:safe-global/safe-smart-account#b75e250"
-  },
   "devDependencies": {
     "dotenv-cli": "^10.0.0"
   }
