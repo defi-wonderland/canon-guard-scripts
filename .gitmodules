@@ -1,0 +1,6 @@
+[submodule "lib/canon-guard"]
+	path = lib/canon-guard
+	url = https://github.com/defi-wonderland/canon-guard
+[submodule "lib/safe-smart-account"]
+	path = lib/safe-smart-account
+	url = https://github.com/safe-global/safe-smart-account
