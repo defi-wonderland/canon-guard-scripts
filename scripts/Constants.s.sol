@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.8.29;
+
+import {ISafeEntrypointFactory} from "@canon-guard/factories/ISafeEntrypointFactory.sol";
+import {IAllowanceClaimorFactory} from "@canon-guard/factories/IAllowanceClaimorFactory.sol";
+import {IApproveActionFactory} from "@canon-guard/factories/IApproveActionFactory.sol";
+import {ICappedTokenTransfersHubFactory} from "@canon-guard/factories/ICappedTokenTransfersHubFactory.sol";
+import {ISimpleActionsFactory} from "@canon-guard/factories/ISimpleActionsFactory.sol";
+import {ISimpleTransfersFactory} from "@canon-guard/factories/ISimpleTransfersFactory.sol";
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
+
+library CanonRegistry {
+    ISafeEntrypointFactory constant SAFE_ENTRYPOINT_FACTORY = ISafeEntrypointFactory(0x82386Bc221fc4C8FE8a1aBBCb9ba63d9379DE1dE);
+    IAllowanceClaimorFactory constant ALLOWANCE_CLAIMOR_FACTORY = IAllowanceClaimorFactory(0x22caFedbd199b77241ff862Da076a951709f0f66);
+    IApproveActionFactory constant APPROVE_ACTION_FACTORY = IApproveActionFactory(0x7B836eB789A63E22686709b95745b50bf271DBB3);
+    ICappedTokenTransfersHubFactory constant CAPPED_TOKEN_TRANSFERS_HUB_FACTORY = ICappedTokenTransfersHubFactory(0x3F3a4aA6f3F48f607f1CE98994C510D830dF39D9);
+    ISimpleActionsFactory constant SIMPLE_ACTIONS_FACTORY = ISimpleActionsFactory(0xB63Bd0e55d3026d4a06C482b4c193E835EeD66b1);
+    ISimpleTransfersFactory constant SIMPLE_TRANSFERS_FACTORY = ISimpleTransfersFactory(0xEE6c9f2Ced068f0389f437B830A511f054F5cc9B);
+    address constant NO_ACTIONS = 0xCA026cceC6DA7E6716087697C5662040E8bd54F0;
+}

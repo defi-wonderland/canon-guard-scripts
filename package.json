@@ -1,16 +1,25 @@
 {
   "name": "canon-guard-scripts",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Scripts for Canon Guard",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "isGuardSetup":       "forge script scripts/actions/GuardActions.s.sol:GuardActions --sig isGuardSetup",
+    "setupGuard":         "forge script scripts/actions/GuardActions.s.sol:GuardActions --broadcast --account canon-guard-tester --sig setupGuard",
+    "removeGuard":        "forge script scripts/actions/GuardActions.s.sol:GuardActions --broadcast --account canon-guard-tester --sig removeGuard",
+    "queueTransaction":   "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig queueTransaction",
+    "signTransaction":    "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig signTransaction",
+    "executeTransaction": "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig executeTransaction",
+    "approveTransaction": "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig approveTransaction",
+    "approveHub":         "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig approveHub",
+    "deploySimpleAction": "forge script scripts/actions/SimpleActions.s.sol:SimpleActions --broadcast --account canon-guard-tester --sig deploySimpleAction",
+    "deploySimpleTransfer": "forge script scripts/actions/SimpleTransferActions.s.sol:SimpleTransferActions --broadcast --account canon-guard-tester --sig deploySimpleTransfer",
+    "deployCappedTokenTransferHub": "forge script scripts/actions/CappedTokenTransferActions.s.sol:CappedTokenTransferActions --broadcast --account canon-guard-tester --sig deployCappedTokenTransfersHub",
+    "deployCappedTokenTransfer":    "forge script scripts/actions/CappedTokenTransferActions.s.sol:CappedTokenTransferActions --broadcast --account canon-guard-tester --sig deployCappedTokenTransfer"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Wonderland",
   "license": "ISC",
   "packageManager": "pnpm@10.12.1",
-  "dependencies": {
-    "@defi-wonderland/canon-guard-interfaces": "^0.0.1"
+  "devDependencies": {
+    "dotenv-cli": "^10.0.0"
   }
 }

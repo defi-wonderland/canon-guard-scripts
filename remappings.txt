@@ -1,1 +1,2 @@
-canon-guard/=node_modules/@defi-wonderland/canon-guard-interfaces/src/interfaces
+@safe-smart-account/=lib/safe-smart-account/contracts
+@canon-guard/=lib/canon-guard/src/interfaces
