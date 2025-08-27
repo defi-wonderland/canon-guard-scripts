@@ -11,7 +11,6 @@
     "executeTransaction": "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig executeTransaction",
     "approveTransaction": "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig approveTransaction",
     "approveHub":         "forge script scripts/actions/BasicActions.s.sol:BasicActions --broadcast --account canon-guard-tester --sig approveHub",
-    "approveNoAction":    "forge script scripts/actions/ApproveActions.s.sol:ApproveActions --broadcast --account canon-guard-tester --sig approveNoAction",
     "deploySimpleAction": "forge script scripts/actions/SimpleActions.s.sol:SimpleActions --broadcast --account canon-guard-tester --sig deploySimpleAction",
     "deploySimpleTransfer": "forge script scripts/actions/SimpleTransferActions.s.sol:SimpleTransferActions --broadcast --account canon-guard-tester --sig deploySimpleTransfer",
     "deployCappedTokenTransferHub": "forge script scripts/actions/CappedTokenTransferActions.s.sol:CappedTokenTransferActions --broadcast --account canon-guard-tester --sig deployCappedTokenTransfersHub",
