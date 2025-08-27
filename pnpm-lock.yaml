@@ -7,26 +7,12 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@defi-wonderland/canon-guard-interfaces':
-        specifier: ^0.0.1
-        version: 0.0.1
-      '@safe-global/safe-contracts':
-        specifier: github:safe-global/safe-smart-account#b75e250
-        version: '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250'
     devDependencies:
       dotenv-cli:
         specifier: ^10.0.0
         version: 10.0.0
 
 packages:
-
-  '@defi-wonderland/canon-guard-interfaces@0.0.1':
-    resolution: {integrity: sha512-jdO9/NVJ0+ThM/CKCF0aA9VUgwZMBvONdt6jiDKMlij1p3Ax5FfusmC0bvOf19RIGUGnUdZNWswBZPKmzaac6Q==}
-
-  '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250':
-    resolution: {tarball: https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250}
-    version: 1.4.1-build.0
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -66,23 +52,12 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  solady@https://codeload.github.com/vectorized/solady/tar.gz/701406e:
-    resolution: {tarball: https://codeload.github.com/vectorized/solady/tar.gz/701406e}
-    version: 0.1.19
-
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
     hasBin: true
 
 snapshots:
-
-  '@defi-wonderland/canon-guard-interfaces@0.0.1':
-    dependencies:
-      '@safe-global/safe-contracts': '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250'
-      solady: https://codeload.github.com/vectorized/solady/tar.gz/701406e
-
-  '@safe-global/safe-smart-account@https://codeload.github.com/safe-global/safe-smart-account/tar.gz/b75e250': {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -116,8 +91,6 @@ snapshots:
       shebang-regex: 3.0.0
 
   shebang-regex@3.0.0: {}
-
-  solady@https://codeload.github.com/vectorized/solady/tar.gz/701406e: {}
 
   which@2.0.2:
     dependencies:

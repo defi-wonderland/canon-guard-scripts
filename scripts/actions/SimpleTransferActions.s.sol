@@ -4,7 +4,7 @@ pragma solidity 0.8.29;
 import {BasicActions} from "./BasicActions.s.sol";
 import {CanonRegistry} from "../Constants.s.sol";
 import {console} from "forge-std/console.sol";
-import {ISimpleTransfers} from "@interfaces/actions-builders/ISimpleTransfers.sol";
+import {ISimpleTransfers} from "@canon-guard/actions-builders/ISimpleTransfers.sol";
 
 contract SimpleTransferActions is BasicActions {
     function deploySimpleTransfer() ensureEntrypoint public {

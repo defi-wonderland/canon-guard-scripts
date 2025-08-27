@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.29;
 
-import {ISafeEntrypointFactory} from "@interfaces/factories/ISafeEntrypointFactory.sol";
-import {IAllowanceClaimorFactory} from "@interfaces/factories/IAllowanceClaimorFactory.sol";
-import {IApproveActionFactory} from "@interfaces/factories/IApproveActionFactory.sol";
-import {ICappedTokenTransfersHubFactory} from "@interfaces/factories/ICappedTokenTransfersHubFactory.sol";
-import {ISimpleActionsFactory} from "@interfaces/factories/ISimpleActionsFactory.sol";
-import {ISimpleTransfersFactory} from "@interfaces/factories/ISimpleTransfersFactory.sol";
+import {ISafeEntrypointFactory} from "@canon-guard/factories/ISafeEntrypointFactory.sol";
+import {IAllowanceClaimorFactory} from "@canon-guard/factories/IAllowanceClaimorFactory.sol";
+import {IApproveActionFactory} from "@canon-guard/factories/IApproveActionFactory.sol";
+import {ICappedTokenTransfersHubFactory} from "@canon-guard/factories/ICappedTokenTransfersHubFactory.sol";
+import {ISimpleActionsFactory} from "@canon-guard/factories/ISimpleActionsFactory.sol";
+import {ISimpleTransfersFactory} from "@canon-guard/factories/ISimpleTransfersFactory.sol";
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 library CanonRegistry {

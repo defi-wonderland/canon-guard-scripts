@@ -2,8 +2,8 @@
 pragma solidity 0.8.29;
 
 import {console} from "forge-std/console.sol";
-import {ISafeEntrypoint} from '@interfaces/ISafeEntrypoint.sol';
-import {ISimpleActions} from '@interfaces/actions-builders/ISimpleActions.sol';
+import {ISafeEntrypoint} from '@canon-guard/ISafeEntrypoint.sol';
+import {ISimpleActions} from '@canon-guard/actions-builders/ISimpleActions.sol';
 import {BasicActions} from "./BasicActions.s.sol";
 import {CanonRegistry} from "../Constants.s.sol";
 
