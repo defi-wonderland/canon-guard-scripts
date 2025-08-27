@@ -67,11 +67,12 @@ contract CappedTokenTransferActions is BasicActions {
                 return;
             }
         } else {
-            console.log("Hub tokens:");
+            string memory promptMessage = "The following tokens are configured in your hub:\n";
             for (uint256 i; i < hubTokens.length; ++i) {
-                console.log("- %s", hubTokens[i]);
+                promptMessage = string.concat(promptMessage, "- ", vm.toString(hubTokens[i]), "\n");
             }
-            token = vm.parseAddress(vm.prompt("Which token would you like to transfer?"));
+            promptMessage = string.concat(promptMessage, "Which token would you like to transfer?");
+            token = vm.parseAddress(vm.prompt(promptMessage));
         }
 
         // Show the remaining amount to spend in this epoch and ensure the user doesn't set a higher number than it
