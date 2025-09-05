@@ -94,8 +94,8 @@ contract Core is ScriptWithUtils {
         }
 
         (, uint256 _executableAt, uint256 _expiresAt) = entrypoint.queuedTransactions(actionBuilder);
-        uint256 executableIn = _executableAt - block.timestamp;
-        uint256 expiresIn = _expiresAt - block.timestamp;
+        int256 executableIn = int256(_executableAt) - int256(block.timestamp);
+        int256 expiresIn = int256(_expiresAt) - int256(block.timestamp);
 
         console.log("Your transaction will be executable in %s seconds", executableIn);
         console.log("Watch out, your transaction will also expire in %s seconds", expiresIn);
