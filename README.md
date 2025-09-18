@@ -41,7 +41,7 @@ Run with: `pnpm run <command>`
 | `setupGuard` | Deploy and configure Canon Guard on your Safe |
 | `removeGuard` | Remove Canon Guard from your Safe |
 | `isGuardSetup` | Check whether a guard is configured |
-| `queueTransaction` | Queue an action builder into the entrypoint |
+| `queueTransaction` | Queue an action builder into your canon guard |
 | `signTransaction` | Approve (sign) a queued action in the Safe |
 | `executeTransaction` | Execute a queued action when ready |
 | `approveTransaction` | Approve an action builder for a duration |

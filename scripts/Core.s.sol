@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
 import {console} from "forge-std/console.sol";
-import {ISafeEntrypoint} from "@canon-guard/ISafeEntrypoint.sol";
+import {ICanonGuard} from "@canon-guard/ICanonGuard.sol";
 import {ISimpleActions} from "@canon-guard/actions-builders/ISimpleActions.sol";
 import {IActionsBuilder} from "@canon-guard/actions-builders/IActionsBuilder.sol";
 
@@ -13,8 +13,8 @@ import {CanonRegistry} from "./Constants.s.sol";
 contract Core is ScriptWithUtils {
     ISafe safe;
     uint256 safeThreshold;
-    ISafeEntrypoint entrypoint;
-    bool isEntrypointDetached;
+    ICanonGuard canonGuard;
+    bool isCanonGuardDetached;
 
     function setUp() public {
         vm.createSelectFork(vm.envString("RPC_URL"));
@@ -22,13 +22,13 @@ contract Core is ScriptWithUtils {
         // TODO: check that it is a valid safe
         safe = ISafe(vm.envAddress("SAFE"));
         safeThreshold = safe.getThreshold();
-        entrypoint = ISafeEntrypoint(_getSafeGuard(safe));
+        canonGuard = ICanonGuard(_getSafeGuard(safe));
 
         console.log("Signer: %s", msg.sender);
         console.log("Safe: %s", address(safe));
         console.log("Safe threshold: %s", safeThreshold);
-        // TODO: check if this is an entrypoint or any other guard
-        console.log("Safe guard: %s", address(entrypoint));
+        // TODO: check if this is an canon guard or any other guard
+        console.log("Canon guard: %s", address(canonGuard));
     }
 
     function _proposeQueueTransaction(address actionBuilder, string memory promptPrefix) internal {
@@ -36,13 +36,13 @@ contract Core is ScriptWithUtils {
     }
 
     function _proposeQueueTransaction(address actionHub, address actionBuilder, string memory promptPrefix) internal {
-        string memory prompt = string.concat(promptPrefix, ". Would you like to enqueue the action into the entrypoint?");
+        string memory prompt = string.concat(promptPrefix, ". Would you like to enqueue the action into your Canon guard?");
 
         bool enqueueConfirmation = _promptConfirmation(prompt);
         if (!enqueueConfirmation) {
             console.log("You can enqueue the action via the queueTransaction script");
-            if (isEntrypointDetached) {
-                console.log("Detached entrypoint: %s", address(entrypoint));
+            if (isCanonGuardDetached) {
+                console.log("Detached Canon guard: %s", address(canonGuard));
             }
             console.log("Action builder: %s", actionBuilder);
             return;
@@ -56,12 +56,12 @@ contract Core is ScriptWithUtils {
     }
 
     function _queueTransaction(address actionHub, address actionBuilder) internal {
-        // Add transaction into the Entrypoint queue
+        // Add transaction into the Canon guard queue
         vm.startBroadcast();
         if (actionHub == address(0)) {
-            entrypoint.queueTransaction(actionBuilder);
+            canonGuard.queueTransaction(actionBuilder);
         } else {
-            entrypoint.queueHubTransaction(actionHub, actionBuilder);
+            canonGuard.queueHubTransaction(actionHub, actionBuilder);
         }
         vm.stopBroadcast();
 
@@ -69,8 +69,8 @@ contract Core is ScriptWithUtils {
         if (!approveConfirmation) {
             console.log("Signers can approve the action in your Safe via the signTransaction script by using the following address as input: %s", actionBuilder);
             console.log("Or the signers can also directly call your Safe's (%s) method approveHash(%s)", address(safe), actionBuilder);
-            if (isEntrypointDetached) {
-                console.log("Detached entrypoint: %s", address(entrypoint));
+            if (isCanonGuardDetached) {
+                console.log("Detached Canon guard: %s", address(canonGuard));
             }
             return;
         }
@@ -79,7 +79,7 @@ contract Core is ScriptWithUtils {
     }
 
     function _signTransaction(address actionBuilder) internal {
-        bytes32 safeTxHash = entrypoint.getSafeTransactionHash(actionBuilder);
+        bytes32 safeTxHash = canonGuard.getSafeTransactionHash(actionBuilder);
         vm.startBroadcast();
         safe.approveHash(safeTxHash);
         vm.stopBroadcast();
@@ -93,21 +93,21 @@ contract Core is ScriptWithUtils {
             );
         }
 
-        (, uint256 _executableAt, uint256 _expiresAt) = entrypoint.queuedTransactions(actionBuilder);
+        (,, uint256 _executableAt, uint256 _expiresAt) = canonGuard.queuedTransactions(actionBuilder);
         int256 executableIn = int256(_executableAt) - int256(block.timestamp);
         int256 expiresIn = int256(_expiresAt) - int256(block.timestamp);
 
         console.log("Your transaction will be executable in %s seconds", executableIn);
         console.log("Watch out, your transaction will also expire in %s seconds", expiresIn);
         console.log("You can execute the transaction via the executeTransaction script");
-        if (isEntrypointDetached) {
-            console.log("Detached entrypoint: %s", address(entrypoint));
+        if (isCanonGuardDetached) {
+            console.log("Detached Canon guard: %s", address(canonGuard));
         }
         console.log("Action builder: %s", actionBuilder);
     }
 
-    function _executeTransaction(address actionBuilder) ensureEntrypoint internal {
-        (, uint256 _executableAt, uint256 _expiresAt) = entrypoint.queuedTransactions(actionBuilder);
+    function _executeTransaction(address actionBuilder) ensureCanonGuard internal {
+        (,, uint256 _executableAt, uint256 _expiresAt) = canonGuard.queuedTransactions(actionBuilder);
         int256 executableIn = int256(_executableAt) - int256(block.timestamp);
         int256 expiresIn = int256(_expiresAt) - int256(block.timestamp);
 
@@ -120,7 +120,7 @@ contract Core is ScriptWithUtils {
             return;
         }
 
-        bytes32 safeTxHash = entrypoint.getSafeTransactionHash(actionBuilder);
+        bytes32 safeTxHash = canonGuard.getSafeTransactionHash(actionBuilder);
         address[] memory approvedHashSigners = _getSafeApprovedHashSigners(safe, safeTxHash);
 
         uint256 missingSignatures = safeThreshold - approvedHashSigners.length;
@@ -131,38 +131,38 @@ contract Core is ScriptWithUtils {
                 vm.toString(safeTxHash),
                 actionBuilder
             );
-            if (isEntrypointDetached) {
-                console.log("Detached entrypoint: %s", address(entrypoint));
+            if (isCanonGuardDetached) {
+                console.log("Detached Canon guard: %s", address(canonGuard));
             }
         }
 
         vm.startBroadcast();
-        entrypoint.executeTransaction(actionBuilder);
+        canonGuard.executeTransaction(actionBuilder);
         vm.stopBroadcast();
 
         console.log("Transaction executed in your Safe");
     }
 
-    function _approveTransaction(address actionBuilder, uint256 approvalDuration) ensureEntrypoint internal {
+    function _approveTransaction(address actionBuilder, uint256 approvalDuration) ensureCanonGuard internal {
         vm.startBroadcast();
-        address approvalAction = CanonRegistry.APPROVE_ACTION_FACTORY.createApproveAction(address(entrypoint), actionBuilder, approvalDuration);
+        address approvalAction = CanonRegistry.APPROVE_ACTION_FACTORY.createApproveAction(address(canonGuard), actionBuilder, approvalDuration);
         console.log("Approval action of action builder %s for %s seconds deployed to: %s", actionBuilder, approvalDuration, approvalAction);
         vm.stopBroadcast();
         
         _proposeQueueTransaction(approvalAction, "Approve action successfully deployed");
     }
 
-    modifier ensureEntrypoint {
-        if (address(entrypoint) == address(0)) {
-            bool confirmation = _promptConfirmation("Entrypoint not yet configured in your Safe. Would you like to specify your detached entrypoint address?");
+    modifier ensureCanonGuard {
+        if (address(canonGuard) == address(0)) {
+            bool confirmation = _promptConfirmation("Canon guard not yet configured in your Safe. Would you like to specify your detached canonGuard address?");
             if (confirmation) {
-                // TODO: check if valid entrypoint
-                entrypoint = ISafeEntrypoint(vm.parseAddress(vm.prompt("Insert entrypoint address")));
-                isEntrypointDetached = true;
+                // TODO: check if valid canonGuard
+                canonGuard = ICanonGuard(vm.parseAddress(vm.prompt("Insert canonGuard address")));
+                isCanonGuardDetached = true;
             }
         }
 
-        require (address(entrypoint) != address(0), "Canon Guard is not yet configured in your Safe");
+        require (address(canonGuard) != address(0), "Canon Guard is not yet configured in your Safe");
         _;
     }
 }

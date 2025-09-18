@@ -1,25 +1,25 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
 import {console} from "forge-std/console.sol";
-import {ISafeEntrypoint} from '@canon-guard/ISafeEntrypoint.sol';
+import {ICanonGuard} from '@canon-guard/ICanonGuard.sol';
 import {ISimpleActions} from '@canon-guard/actions-builders/ISimpleActions.sol';
 import {BasicActions} from "./BasicActions.s.sol";
 import {CanonRegistry} from "../Constants.s.sol";
 
 contract GuardActions is BasicActions {
     function isGuardSetup() view public {
-        if (address(entrypoint) == address(0)) {
+        if (address(canonGuard) == address(0)) {
             console.log("Canon Guard is not configured");
         } else {
             // TODO: check if it is really a Canon Guard
-            console.log("Yes! Guard %s is configured", address(entrypoint));
+            console.log("Yes! Guard %s is configured", address(canonGuard));
         }
     }
 
     function setupGuard() public {
-        // Ensure entrypoint address is being logged as detached
-        isEntrypointDetached = true;
+        // Ensure Canon guard address is being logged as detached
+        isCanonGuardDetached = true;
 
         uint256 shortTxExecutionDelay = vm.parseUint(vm.prompt("How long in seconds should you SHORT execution delay be? In seconds"));
         uint256 longTxExecutionDelay = vm.parseUint(vm.prompt("How long in seconds should you LONG execution delay be? In seconds"));
@@ -33,13 +33,13 @@ contract GuardActions is BasicActions {
 
     function removeGuard() public {
         // TODO: check if it is really a Canon Guard
-        if (address(entrypoint) == address(0)) {
+        if (address(canonGuard) == address(0)) {
             console.log("Canon Guard is not configured");
             return;
         }
 
         vm.startBroadcast();
-        address removeGuardAction = CanonRegistry.SIMPLE_ACTIONS_FACTORY.createSimpleActions(
+        address removeGuardAction = CanonRegistry.SIMPLE_ACTIONS_FACTORY.createSimpleAction(
             ISimpleActions.SimpleAction(
                 address(safe),
                 "setGuard(address)",
@@ -55,7 +55,7 @@ contract GuardActions is BasicActions {
 
     function _setupGuard(uint256 shortTxExecutionDelay, uint256 longTxExecutionDelay, uint256 txExpiryDelay, uint256 maxApprovalDuration, address emergencyTrigger, address emergencyCaller) internal {
         vm.startBroadcast();
-        entrypoint = ISafeEntrypoint(CanonRegistry.SAFE_ENTRYPOINT_FACTORY.createSafeEntrypoint(
+        canonGuard = ICanonGuard(CanonRegistry.CANON_GUARD_FACTORY.createCanonGuard(
             address(safe),
             shortTxExecutionDelay,
             longTxExecutionDelay,
@@ -64,20 +64,20 @@ contract GuardActions is BasicActions {
             emergencyTrigger,
             emergencyCaller
         ));
-        console.log("Entrypoint deployed to: %s", address(entrypoint));
+        console.log("Canon guard deployed to: %s", address(canonGuard));
 
-        address setGuardAction = CanonRegistry.SIMPLE_ACTIONS_FACTORY.createSimpleActions(
+        address setGuardAction = CanonRegistry.SIMPLE_ACTIONS_FACTORY.createSimpleAction(
             ISimpleActions.SimpleAction(
                 address(safe),
                 "setGuard(address)",
-                abi.encode(address(entrypoint)),
+                abi.encode(address(canonGuard)),
                 0
             )
         );
         console.log("Set guard simple action deployed to: %s", setGuardAction);
         vm.stopBroadcast();
 
-        _proposeQueueTransaction(setGuardAction, "Entrypoint and set guard action successfully deployed");
+        _proposeQueueTransaction(setGuardAction, "Canon guard and set guard action successfully deployed");
     }
 
 }

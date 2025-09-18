@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
-import {ISafeEntrypointFactory} from "@canon-guard/factories/ISafeEntrypointFactory.sol";
+import {ICanonGuardFactory} from "@canon-guard/factories/ICanonGuardFactory.sol";
 import {IAllowanceClaimorFactory} from "@canon-guard/factories/IAllowanceClaimorFactory.sol";
 import {IApproveActionFactory} from "@canon-guard/factories/IApproveActionFactory.sol";
 import {ICappedTokenTransfersHubFactory} from "@canon-guard/factories/ICappedTokenTransfersHubFactory.sol";
@@ -10,11 +10,10 @@ import {ISimpleTransfersFactory} from "@canon-guard/factories/ISimpleTransfersFa
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 library CanonRegistry {
-    ISafeEntrypointFactory constant SAFE_ENTRYPOINT_FACTORY = ISafeEntrypointFactory(0x82386Bc221fc4C8FE8a1aBBCb9ba63d9379DE1dE);
-    IAllowanceClaimorFactory constant ALLOWANCE_CLAIMOR_FACTORY = IAllowanceClaimorFactory(0x22caFedbd199b77241ff862Da076a951709f0f66);
-    IApproveActionFactory constant APPROVE_ACTION_FACTORY = IApproveActionFactory(0x7B836eB789A63E22686709b95745b50bf271DBB3);
-    ICappedTokenTransfersHubFactory constant CAPPED_TOKEN_TRANSFERS_HUB_FACTORY = ICappedTokenTransfersHubFactory(0x3F3a4aA6f3F48f607f1CE98994C510D830dF39D9);
-    ISimpleActionsFactory constant SIMPLE_ACTIONS_FACTORY = ISimpleActionsFactory(0xB63Bd0e55d3026d4a06C482b4c193E835EeD66b1);
-    ISimpleTransfersFactory constant SIMPLE_TRANSFERS_FACTORY = ISimpleTransfersFactory(0xEE6c9f2Ced068f0389f437B830A511f054F5cc9B);
-    address constant NO_ACTIONS = 0xCA026cceC6DA7E6716087697C5662040E8bd54F0;
+    ICanonGuardFactory constant CANON_GUARD_FACTORY = ICanonGuardFactory(0xc7B2BA2A8281A1F466Afc5E0096FdE30E6753db0);
+    IAllowanceClaimorFactory constant ALLOWANCE_CLAIMOR_FACTORY = IAllowanceClaimorFactory(0x118b6C10F09f03bf4D9BD77B85978b60c4dECE35);
+    IApproveActionFactory constant APPROVE_ACTION_FACTORY = IApproveActionFactory(0xD3792dbB77Cf104332f5C50866465a01fE300B26);
+    ICappedTokenTransfersHubFactory constant CAPPED_TOKEN_TRANSFERS_HUB_FACTORY = ICappedTokenTransfersHubFactory(0x6C331077CD06C6d37b8C147FCefD59536D416b55);
+    ISimpleActionsFactory constant SIMPLE_ACTIONS_FACTORY = ISimpleActionsFactory(0x32B766aD20aa65B4bffA7bD2b4C713CfE30af56e);
+    ISimpleTransfersFactory constant SIMPLE_TRANSFERS_FACTORY = ISimpleTransfersFactory(0xCE5b38C24db98FD5B196D747Cf4Bdc132489a2Eb);
 }
