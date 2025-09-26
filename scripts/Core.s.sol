@@ -156,8 +156,8 @@ contract Core is ScriptWithUtils {
     }
 
     function _cancelEnqueuedTransaction(address actionBuilder) ensureCanonGuard internal {
-        TransactionInfo memory txInfo = canonGuard.transactionsInfo(actionBuilder);
-        if (txInfo.proposer == msg.sender) {
+        (address proposer, , , , ) = canonGuard.transactionsInfo(actionBuilder);
+        if (proposer == msg.sender) {
             console.log("You are not the proposer of the transaction");
             return;
         }
