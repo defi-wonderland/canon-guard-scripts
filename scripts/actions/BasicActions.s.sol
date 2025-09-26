@@ -51,6 +51,12 @@ contract BasicActions is Core {
         }
     }
 
+    function cancelEnqueuedTransaction() public {
+        address actionBuilder = vm.parseAddress(vm.prompt("What's the address of the action builder you want to cancel?"));
+
+        _cancelEnqueuedTransaction(actionBuilder);
+    }
+
     function _approveTransactionOrHub(address actionBuilderOrHub) ensureCanonGuard internal {
         uint256 approvalDuration = vm.parseUint(vm.prompt("How long should for it to be approved? In seconds"));
         _approveTransaction(actionBuilderOrHub, approvalDuration);
