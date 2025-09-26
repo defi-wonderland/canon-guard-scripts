@@ -36,6 +36,21 @@ contract BasicActions is Core {
         _approveTransactionOrHub(actionBuilder);
     }
 
+    function executeNoActionTransaction() ensureCanonGuard public {
+        string memory prompt = "You are going to execute an empty transaction. This needs the required signatures beforehand. Would you like to proceed?";
+
+        bool approveConfirmation = _promptConfirmation(prompt);
+        if (approveConfirmation) {
+            vm.startBroadcast();
+            canonGuard.executeNoActionTransaction();
+            vm.stopBroadcast();
+
+            console.log("Empty transaction executed in your Safe");
+        } else {
+            console.log("Operation cancelled");
+        }
+    }
+
     function _approveTransactionOrHub(address actionBuilderOrHub) ensureCanonGuard internal {
         uint256 approvalDuration = vm.parseUint(vm.prompt("How long should for it to be approved? In seconds"));
         _approveTransaction(actionBuilderOrHub, approvalDuration);
