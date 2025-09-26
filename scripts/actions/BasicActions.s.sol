@@ -17,8 +17,13 @@ contract BasicActions is Core {
     }
 
     function signTransaction() ensureCanonGuard public {
-        address actionBuilder = vm.parseAddress(vm.prompt("What's the address of the action builder you want to approve?"));
-        _signTransaction(actionBuilder);
+        string memory result = vm.prompt("What's the address of the action builder you want to approve? (0 for no-action transaction)");
+        if (_isEqual(result, "0")) {
+            _signTransaction(address(0));
+        } else {
+             address actionBuilder = vm.parseAddress(result);
+            _signTransaction(actionBuilder);
+        }
     }
 
     function executeTransaction() ensureCanonGuard public {
