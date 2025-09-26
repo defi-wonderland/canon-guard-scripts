@@ -15,12 +15,6 @@ contract BasicActions is Core {
         address actionBuilder = vm.parseAddress(vm.prompt("What's the address of the action builder you want to enqueue?"));
         _queueTransaction(actionBuilder);
     }
-    
-    function queueHubTransaction() ensureCanonGuard public {
-        address actionHub = vm.parseAddress(vm.prompt("What's the address of the action hub?"));
-        address actionBuilder = vm.parseAddress(vm.prompt("What's the address of the action builder you want to enqueue?"));
-        _queueTransaction(actionHub, actionBuilder);
-    }
 
     function signTransaction() ensureCanonGuard public {
         address actionBuilder = vm.parseAddress(vm.prompt("What's the address of the action builder you want to approve?"));
