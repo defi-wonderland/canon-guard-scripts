@@ -140,6 +140,21 @@ contract Core is ScriptWithUtils {
         _proposeQueueTransaction(approvalAction, "Approve action successfully deployed");
     }
 
+    function _executeNoActionTransaction() ensureCanonGuard internal {
+        bytes32 safeTxHash = canonGuard.getSafeTransactionHash(address(0));
+        address[] memory approvedHashSigners = _getSafeApprovedHashSigners(safe, safeTxHash);
+        if (approvedHashSigners.length == 0) {
+            console.log("Transaction has no approvals");
+            return;
+        }
+
+        vm.startBroadcast();
+        canonGuard.executeNoActionTransaction();
+        vm.stopBroadcast();
+
+        console.log("Empty transaction executed in your Safe");
+    }
+
     function _cancelEnqueuedTransaction(address actionBuilder) ensureCanonGuard internal {
         TransactionInfo memory txInfo = canonGuard.transactionsInfo(actionBuilder);
         if (txInfo.proposer == msg.sender) {
