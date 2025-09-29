@@ -10,10 +10,10 @@ import {ISimpleTransfersFactory} from "@canon-guard/factories/ISimpleTransfersFa
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 library CanonRegistry {
-    ICanonGuardFactory constant CANON_GUARD_FACTORY = ICanonGuardFactory(0x079D6dc735975851d822CE51f4f63671f5fd98fF);
-    IAllowanceClaimorFactory constant ALLOWANCE_CLAIMOR_FACTORY = IAllowanceClaimorFactory(0xd558C3e2dd8Cb0584CbDE4cFb9CE3d3D41B276DB);
-    IApproveActionFactory constant APPROVE_ACTION_FACTORY = IApproveActionFactory(0x7bdB9eAdEC9e4C0eaf044AfAe0a08DDB57Fe6779);
-    ICappedTokenTransfersHubFactory constant CAPPED_TOKEN_TRANSFERS_HUB_FACTORY = ICappedTokenTransfersHubFactory(0x08f30bA2C764F6C61EDD33116290892F8d2507DE);
-    ISimpleActionsFactory constant SIMPLE_ACTIONS_FACTORY = ISimpleActionsFactory(0xF3bCCd24A1c0AB3e784A7CD812c0Fa382Beab62F);
-    ISimpleTransfersFactory constant SIMPLE_TRANSFERS_FACTORY = ISimpleTransfersFactory(0x60fa43e3fb8F0016934B9fd78297209E24e2Fe21);
+    ICanonGuardFactory constant CANON_GUARD_FACTORY = ICanonGuardFactory(0x84725ebdF986308cc8a24525CbFcfe288ff73399);
+    IAllowanceClaimorFactory constant ALLOWANCE_CLAIMOR_FACTORY = IAllowanceClaimorFactory(0x92E1FD85AD2Cc57d454571d912Ffc5693bd120A0);
+    IApproveActionFactory constant APPROVE_ACTION_FACTORY = IApproveActionFactory(0x28AA7716DbfCb459F6A82a5Da1FdA7094ec9A943);
+    ICappedTokenTransfersHubFactory constant CAPPED_TOKEN_TRANSFERS_HUB_FACTORY = ICappedTokenTransfersHubFactory(0x65b1D23728F1f5a8a51C7794CD29C0a98020792A);
+    ISimpleActionsFactory constant SIMPLE_ACTIONS_FACTORY = ISimpleActionsFactory(0xfADd479952e7CA915F89d1D7cFdc6552f351C652);
+    ISimpleTransfersFactory constant SIMPLE_TRANSFERS_FACTORY = ISimpleTransfersFactory(0xA773D569F700F1100b0D662bD90Ea948aA8D299d);
 }
