@@ -121,6 +121,6 @@ contract CappedTokenTransferActions is BasicActions {
         console.log("Transfer action deployed to: %s", actionBuilder);
         vm.stopBroadcast();
 
-        _proposeQueueTransaction(address(actionHub), actionBuilder, "Transfer action successfully deployed");
+        _proposeQueueTransaction(actionBuilder, "Transfer action successfully deployed");
     }
 }

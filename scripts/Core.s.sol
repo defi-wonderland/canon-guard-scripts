@@ -139,6 +139,42 @@ contract Core is ScriptWithUtils {
         _proposeQueueTransaction(approvalAction, "Approve action successfully deployed");
     }
 
+    function _executeNoActionTransaction() ensureCanonGuard internal {
+        bytes32 safeTxHash = canonGuard.getSafeTransactionHash(address(0));
+        address[] memory approvedHashSigners = _getSafeApprovedHashSigners(safe, safeTxHash);
+        if (approvedHashSigners.length == 0) {
+            console.log("Transaction has no approvals");
+            return;
+        }
+
+        vm.startBroadcast();
+        canonGuard.executeNoActionTransaction();
+        vm.stopBroadcast();
+
+        console.log("Empty transaction executed in your Safe");
+    }
+
+    function _cancelEnqueuedTransaction(address actionBuilder) ensureCanonGuard internal {
+        (address proposer, , , , ) = canonGuard.transactionsInfo(actionBuilder);
+        if (proposer == msg.sender) {
+            console.log("You are not the proposer of the transaction");
+            return;
+        }
+
+        bytes32 safeTxHash = canonGuard.getSafeTransactionHash(actionBuilder);
+        address[] memory approvedHashSigners = _getSafeApprovedHashSigners(safe, safeTxHash);
+        if (approvedHashSigners.length > 0) {
+            console.log("Transaction has already been approved");
+            return;
+        }
+
+        vm.startBroadcast();
+        canonGuard.cancelEnqueuedTransaction(actionBuilder);
+        vm.stopBroadcast();
+
+        console.log("Enqueued transaction cancelled");
+    }
+
     modifier ensureCanonGuard {
         if (address(canonGuard) == address(0)) {
             bool confirmation = _promptConfirmation("Canon guard not yet configured in your Safe. Would you like to specify your detached Canon Guard address?");
