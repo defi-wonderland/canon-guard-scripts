@@ -27,15 +27,10 @@ contract Core is ScriptWithUtils {
         console.log("Signer: %s", msg.sender);
         console.log("Safe: %s", address(safe));
         console.log("Safe threshold: %s", safeThreshold);
-        // TODO: check if this is an canon guard or any other guard
         console.log("Canon guard: %s", address(canonGuard));
     }
 
     function _proposeQueueTransaction(address actionBuilder, string memory promptPrefix) internal {
-        _proposeQueueTransaction(address(0), actionBuilder, promptPrefix);
-    }
-
-    function _proposeQueueTransaction(address actionHub, address actionBuilder, string memory promptPrefix) internal {
         string memory prompt = string.concat(promptPrefix, ". Would you like to enqueue the action into your Canon guard?");
 
         bool enqueueConfirmation = _promptConfirmation(prompt);
@@ -48,21 +43,13 @@ contract Core is ScriptWithUtils {
             return;
         }
 
-        _queueTransaction(actionHub, actionBuilder);
+        _queueTransaction(actionBuilder);
     }
 
     function _queueTransaction(address actionBuilder) internal {
-        _queueTransaction(address(0), actionBuilder);
-    }
-
-    function _queueTransaction(address actionHub, address actionBuilder) internal {
         // Add transaction into the Canon guard queue
         vm.startBroadcast();
-        if (actionHub == address(0)) {
-            canonGuard.queueTransaction(actionBuilder);
-        } else {
-            canonGuard.queueHubTransaction(actionHub, actionBuilder);
-        }
+        canonGuard.queueTransaction(actionBuilder);
         vm.stopBroadcast();
 
         bool approveConfirmation = _promptConfirmation("Transaction successfully queued. Would you like to approve this transaction in your Safe?");
@@ -93,7 +80,7 @@ contract Core is ScriptWithUtils {
             );
         }
 
-        (,, uint256 _executableAt, uint256 _expiresAt) = canonGuard.queuedTransactions(actionBuilder);
+        (,, uint256 _executableAt, uint256 _expiresAt,) = canonGuard.transactionsInfo(actionBuilder);
         int256 executableIn = int256(_executableAt) - int256(block.timestamp);
         int256 expiresIn = int256(_expiresAt) - int256(block.timestamp);
 
@@ -107,7 +94,7 @@ contract Core is ScriptWithUtils {
     }
 
     function _executeTransaction(address actionBuilder) ensureCanonGuard internal {
-        (,, uint256 _executableAt, uint256 _expiresAt) = canonGuard.queuedTransactions(actionBuilder);
+        (,, uint256 _executableAt, uint256 _expiresAt,) = canonGuard.transactionsInfo(actionBuilder);
         int256 executableIn = int256(_executableAt) - int256(block.timestamp);
         int256 expiresIn = int256(_expiresAt) - int256(block.timestamp);
 
@@ -145,7 +132,7 @@ contract Core is ScriptWithUtils {
 
     function _approveTransaction(address actionBuilder, uint256 approvalDuration) ensureCanonGuard internal {
         vm.startBroadcast();
-        address approvalAction = CanonRegistry.APPROVE_ACTION_FACTORY.createApproveAction(address(canonGuard), actionBuilder, approvalDuration);
+        address approvalAction = CanonRegistry.APPROVE_ACTION_FACTORY.createPreApproveAction(actionBuilder, approvalDuration);
         console.log("Approval action of action builder %s for %s seconds deployed to: %s", actionBuilder, approvalDuration, approvalAction);
         vm.stopBroadcast();
         
@@ -154,10 +141,11 @@ contract Core is ScriptWithUtils {
 
     modifier ensureCanonGuard {
         if (address(canonGuard) == address(0)) {
-            bool confirmation = _promptConfirmation("Canon guard not yet configured in your Safe. Would you like to specify your detached canonGuard address?");
+            bool confirmation = _promptConfirmation("Canon guard not yet configured in your Safe. Would you like to specify your detached Canon Guard address?");
             if (confirmation) {
-                // TODO: check if valid canonGuard
-                canonGuard = ICanonGuard(vm.parseAddress(vm.prompt("Insert canonGuard address")));
+                address guard = vm.parseAddress(vm.prompt("Insert Canon Guard address"));
+                require (_isValidCanonGuard(guard), "Invalid Canon Guard, not deployed from supported Factory");
+                canonGuard = ICanonGuard(guard);
                 isCanonGuardDetached = true;
             }
         }
