@@ -1,10 +1,16 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
 import {Script} from "forge-std/Script.sol";
 import {ISafe} from '@safe-smart-account/interfaces/ISafe.sol';
+import {CanonRegistry} from "./Constants.s.sol";
 
 contract ScriptWithUtils is Script {
+
+    function _isValidCanonGuard(address guard) internal view returns (bool) {
+        if (guard == address(0)) return false;
+        return CanonRegistry.CANON_GUARD_FACTORY.isChild(guard);
+    }
 
     function _promptConfirmation(string memory question) internal returns (bool confirmation) {
         string memory response = vm.prompt(string.concat(question, " y/(N)"));
@@ -48,7 +54,6 @@ contract ScriptWithUtils is Script {
         // Compute the guard storage slot and read it from the Safe
         bytes32 guardSlot = keccak256(bytes("guard_manager.guard.address"));
         bytes32 raw = vm.load(address(_safe), guardSlot);
-        // TODO: check if it is really a Canon Guard
         return address(uint160(uint256(raw)));
     }
 

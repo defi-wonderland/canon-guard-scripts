@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
 import {BasicActions} from "./BasicActions.s.sol";
 import {CanonRegistry} from "../Constants.s.sol";
@@ -8,7 +8,7 @@ import {ISimpleActions} from "@canon-guard/actions-builders/ISimpleActions.sol";
 
 // TODO: try this out
 contract SimpleActions is BasicActions {
-    function deploySimpleAction() ensureEntrypoint public {
+    function deploySimpleAction() ensureCanonGuard public {
         // Collect simple actions interactively
         ISimpleActions.SimpleAction[] memory simpleActions = new ISimpleActions.SimpleAction[](0);
 

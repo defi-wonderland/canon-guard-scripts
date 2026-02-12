@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
 import {console} from "forge-std/console.sol";
 import {ICappedTokenTransfersHub} from "@canon-guard/action-hubs/ICappedTokenTransfersHub.sol";
@@ -8,7 +8,7 @@ import {CanonRegistry} from "../Constants.s.sol";
 import {BasicActions} from "./BasicActions.s.sol";
 
 contract CappedTokenTransferActions is BasicActions {
-    function deployCappedTokenTransfersHub() ensureEntrypoint public {
+    function deployCappedTokenTransfersHub() ensureCanonGuard public {
         address recipient = vm.parseAddress(vm.prompt("What's the address of the recipient?"));
 
         // Collect tokens and caps interactively
@@ -54,7 +54,7 @@ contract CappedTokenTransferActions is BasicActions {
     }
 
     // TODO: subdivide this into smaller internal functions for better readability of the code
-    function deployCappedTokenTransfer() ensureEntrypoint public {
+    function deployCappedTokenTransfer() ensureCanonGuard public {
         ICappedTokenTransfersHub actionHub = ICappedTokenTransfersHub(vm.parseAddress(vm.prompt("What's the address of your Capped Token Transfer Hub?")));
         // Fetch the tokens from the hub. If there is only one token, skip asking for the token address
         address[] memory hubTokens = actionHub.tokens();
@@ -117,10 +117,10 @@ contract CappedTokenTransferActions is BasicActions {
         }
 
         vm.startBroadcast();
-        address actionBuilder = actionHub.createNewActionBuilder(token, amount);
+        address actionBuilder = actionHub.createNewActionsBuilder(token, amount);
         console.log("Transfer action deployed to: %s", actionBuilder);
         vm.stopBroadcast();
 
-        _proposeQueueTransaction(address(actionHub), actionBuilder, "Transfer action successfully deployed");
+        _proposeQueueTransaction(actionBuilder, "Transfer action successfully deployed");
     }
 }

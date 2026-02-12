@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.29;
+pragma solidity 0.8.30;
 
 import {BasicActions} from "./BasicActions.s.sol";
 import {CanonRegistry} from "../Constants.s.sol";
@@ -7,7 +7,7 @@ import {console} from "forge-std/console.sol";
 import {ISimpleTransfers} from "@canon-guard/actions-builders/ISimpleTransfers.sol";
 
 contract SimpleTransferActions is BasicActions {
-    function deploySimpleTransfer() ensureEntrypoint public {
+    function deploySimpleTransfer() ensureCanonGuard public {
         // Collect transfer actions interactively
         ISimpleTransfers.TransferAction[] memory transferActions = new ISimpleTransfers.TransferAction[](0);
 
